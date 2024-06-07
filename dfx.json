@@ -1,7 +1,7 @@
 {
   "canisters": {
-    "icp_backend": {
-      "main": "src/icp_backend/main.mo",
+    "chapter_1": {
+      "main": "src/chapter_1/main.mo",
       "type": "motoko"
     },
     "chapter_2": {
@@ -9,7 +9,7 @@
       "type": "motoko"
     },
     "icp_frontend": {
-      "dependencies": ["icp_backend"],
+      "dependencies": ["chapter_1", "chapter_2"],
       "source": ["src/icp_frontend/dist"],
       "type": "assets",
       "workspace": "icp_frontend"
