@@ -4,6 +4,7 @@ import Result "mo:base/Result";
 import HashMap "mo:base/HashMap";
 import Principal "mo:base/Principal";
 import Iter "mo:base/Iter";
+import Debug "mo:base/Debug";
 
 actor chapter2{
   type Member = {
@@ -52,6 +53,7 @@ actor chapter2{
       };
       /// function to get all members
       public query func getAllMembers() : async [Member]{
+        Debug.print("Callerd");
         Iter.toArray(members.vals());
       };
       /// function to return the no. of members
