@@ -13,7 +13,7 @@ actor chapter2{
   type Result<A,B> = Result.Result<A,B>;
   type HashMap<K,V> = HashMap.HashMap<K,V>;
   let members = HashMap.HashMap<Principal, Member>(1, Principal.equal, Principal.hash);
-  // function to add new member and give error if already exists
+  /// function to add new member and give error if already exists
   public shared ({caller}) func addMember(member: Member) : async Result<(), Text>{
     switch(members.get(caller)){
       case (null) {
@@ -25,7 +25,8 @@ actor chapter2{
       };
     };
   };
-    // function to get member details
+
+    /// function to get member details
     public query func getMember(principal : Principal) : async Result<Member, Text>{
       switch(members.get(principal)){
         case (null){
@@ -36,27 +37,28 @@ actor chapter2{
         }
       }
     };
-    // function to update a member
+
+    /// function to update a member
     public shared ({caller}) func updateMember(member: Member) : async Result <(), Text>{
       switch(members.get(caller)){
         case (null){
           return #err("Member not found");
         };
-        case (? memberold){
+        case (? memberOld){
           members.put(caller, member);
           return #ok();
         };
       };
       };
-      // function to get all members
+      /// function to get all members
       public query func getAllMembers() : async [Member]{
         Iter.toArray(members.vals());
       };
-      // function to return the no. of members
+      /// function to return the no. of members
       public query func getNoMembers() : async Nat{
         members.size();
       };
-      // function to remove a member
+      /// function to remove a member
       public shared ({caller}) func removeMember() : async Result<(), Text>{
         switch(members.get(caller)){
           case (null){
