@@ -65,3 +65,7 @@ y
 Task 3: getallmembers
 
 Task 4: add new member
+
+Task 5: /members && /members/new, react-router
+
+Task 6: form required , name string only , formik and yup (age b/w 1 & 100)
