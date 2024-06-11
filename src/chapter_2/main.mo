@@ -16,16 +16,17 @@ actor chapter2{
   let members = HashMap.HashMap<Principal, Member>(1, Principal.equal, Principal.hash);
   /// function to add new member and give error if already exists
   public shared ({caller}) func addMember(member: Member) : async Result<(), Text>{
-    if (member.age < 1 or member.age > 100) {
-      return #err("Age must be between 1 and 100");
-    };
     switch(members.get(caller)){
       case (null) {
+        if (member.age < 1 or member.age > 100) {
+          return #err("Age must be between 1 and 100");
+        }else{
         members.put(caller, member);
         return #ok();
+        };
       };
-      case (? memberold) {
-        return #err("Member already exists");
+      case (? oldMember) {
+        return #err("Member with this principal ID already exists");
       };
     };
   };

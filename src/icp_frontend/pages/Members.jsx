@@ -21,10 +21,10 @@ function Members() {
     try {
       const membersData = await chapter_2.getAllMembers()
       setMembers(membersData)
-      setIsFetched(true)
       console.log('Members:', membersData)
     } catch (error) {
       console.error('Error fetching members:', error)
+    } finally {
       setIsFetched(true)
     }
   }
