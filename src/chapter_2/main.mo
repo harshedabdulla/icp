@@ -13,12 +13,14 @@ actor chapter2{
   };
   type Result<A,B> = Result.Result<A,B>;
   type HashMap<K,V> = HashMap.HashMap<K,V>;
-  let members = HashMap.HashMap<Principal, Member>(1, Principal.equal, Principal.hash);
+  stable var stableMembers : [(Principal, Member)] = [];
+  var members = HashMap.HashMap<Principal, Member>(1, Principal.equal, Principal.hash);
+
   /// function to add new member and give error if already exists
   public shared ({caller}) func addMember(member: Member) : async Result<(), Text>{
     switch(members.get(caller)){
       case (null) {
-        if (member.age < 1 or member.age > 100) {
+        if (member.age < 0 or member.age > 100) {
           return #err("Age must be between 1 and 100");
         }else{
         members.put(caller, member);
@@ -75,5 +77,18 @@ actor chapter2{
             #ok();
           };
         };
+      };
+
+      /// preupgrade function - converted the members hashmap to an array
+      system func preupgrade() {
+        stableMembers := Iter.toArray(members.entries());
+      };
+
+      /// postupgrade function to restore the map state by converting the array back to hashmap
+      system func postupgrade() {
+        members := HashMap.fromIter<Principal, Member>(
+        stableMembers.vals(), 1, Principal.equal, Principal.hash
+      );
+        stableMembers := [];
       };
 };

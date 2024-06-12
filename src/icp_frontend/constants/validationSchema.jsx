@@ -1,4 +1,3 @@
-// src/constants/validationSchema.js
 import * as Yup from 'yup'
 
 export const memberValidationSchema = Yup.object({
@@ -11,6 +10,7 @@ export const memberValidationSchema = Yup.object({
     )
     .required('Name is required'),
   age: Yup.number()
+    .integer('Age must be an integer')
     .min(1, 'Age must be at least 1')
     .max(100, 'Age must be at most 100')
     .required('Age is required'),
