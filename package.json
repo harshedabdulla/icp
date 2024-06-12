@@ -15,7 +15,5 @@
   "workspaces": [
     "src/icp_frontend"
   ],
-  "dependencies": {
-    "react-router-dom": "^6.23.1"
-  }
+  "dependencies": {}
 }
